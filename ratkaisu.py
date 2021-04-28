@@ -5,17 +5,15 @@ from pathlib import Path
 
 
 # määritä funktiot (def (function))
-def loppu():
-    pass
-
-
 def lisaaTulos(kilpailu, kilpailija, tulos):
     kilpailu[kilpailija] = tulos
     # no return
 
 
 def tulostaKilpailu(nimi, kilpailu):
-    pass
+    print(f'Kilpailu: {nimi}')
+    for avain in kilpailu:
+        print(avain + ': ' + kilpailu[avain])
     # no return
 
 
@@ -24,8 +22,9 @@ def tallennaKilpailu(nimi, kilpailu):
     tiedoston_nimi = tiedoston_nimi.with_suffix(".txt")
     try:
         with open(tiedoston_nimi, "w") as tiedosto:
-            for arvo, avain in kilpailu:
-                tiedosto.write(str(avain) + ": " + str(arvo) + "\n")
+            for key in kilpailu.keys():
+                    tiedosto.write("%s,%s" % (key, kilpailu[key]))
+                    tiedosto.write('\n')
     except FileNotFoundError:
         pass
     return tiedoston_nimi.exists()
@@ -36,8 +35,10 @@ def lataaKilpailu(nimi, kilpailu):
     tiedoston_nimi = tiedoston_nimi.with_suffix(".txt")
     try:
         with open(tiedoston_nimi, "r") as tiedosto:
-            kilpailu = tiedosto.read()
-            kilpailu = dict(kilpailu)  # w3schools file handling --> readline etc JOS EI TOIMI
+            for rivi in tiedosto:
+                rivi = rivi.rstrip('\n')
+                avain, arvo = rivi.split(',')
+                kilpailu[avain]=arvo
     except FileNotFoundError:
         pass
     return tiedoston_nimi.exists()
@@ -45,9 +46,10 @@ def lataaKilpailu(nimi, kilpailu):
 
 # PÄÄOHJELMA
 # muuttujien alustus
-kilpailu = {}  # kilpailu tulossäiliö
-nimi = ""  # kilpailun nimi
-valinta = ""  # valinta käyttöliittymässä
+global nimi
+kilpailu = {}       # kilpailu tulossäiliö
+nimi = ""           # kilpailun nimi
+valinta = ""        # valinta käyttöliittymässä
 # kilpailija = ''   # kilpailijan nimi
 # tulos = ''        # kilpailijan tulos
 
@@ -62,6 +64,7 @@ while menu:
         kilpailu = {}
     elif valinta == "l":
         nimi = input("Anna kilpailun nimi: ")
+        kilpailu = {}
         if lataaKilpailu(nimi, kilpailu):
             pass
         else:
@@ -70,7 +73,7 @@ while menu:
     elif valinta == "s":
         tallennaKilpailu(nimi, kilpailu)
     elif valinta == "p":
-        pass
+        tulostaKilpailu(nimi, kilpailu)
     elif valinta == "i":
         if not nimi:
             nimi = input("Anna kilpailun nimi: ")
@@ -82,6 +85,6 @@ while menu:
             tulos = input("Anna tulos: ")
             lisaaTulos(kilpailu, kilpailija, tulos)
     elif valinta == "q":
-        loppu()
+        menu = False
     else:
         pass
