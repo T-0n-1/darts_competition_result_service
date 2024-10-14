@@ -54,7 +54,16 @@ def main():
     menu = True
     while menu:
         valinta = input(
-            "Anna valinta (n - aloita uusi, l - lataa vanha, s - tallenna, p - tulokset, i - lisää, q - lopeta): "
+            '''TIKKAKILPAILUJEN TULOSPALVELU
+            Anna valinta:
+                n - aloita uusi
+                l - lataa vanha
+                s - tallenna
+                p - tulokset
+                i - lisää
+                q - lopeta)
+                ------------
+                Valinta: '''
         )
         if valinta == "n":
             nimi = input("Anna kilpailun nimi: ")
