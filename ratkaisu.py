@@ -5,17 +5,17 @@ from pathlib import Path
 
 
 # määritä funktiot (function)
-def lisaaTulos(kilpailu: str, kilpailija: str, tulos: int) -> None:
+def lisaaTulos(kilpailu: dict, kilpailija: str, tulos: str) -> None:
     kilpailu[kilpailija] = tulos
 
 
-def tulostaKilpailu(nimi: str, kilpailu: str) -> None:
+def tulostaKilpailu(nimi: str, kilpailu: dict) -> None:
     print(f'Kilpailu: {nimi}')
     for avain in kilpailu:
         print(f'{avain}: {kilpailu[avain]}')
 
 
-def tallennaKilpailu(nimi: str, kilpailu: str) -> bool or None:
+def tallennaKilpailu(nimi: str, kilpailu: dict) -> bool or None:
     tiedoston_nimi = Path(nimi)
     tiedoston_nimi = tiedoston_nimi.with_suffix(".txt")
     try:
@@ -28,7 +28,7 @@ def tallennaKilpailu(nimi: str, kilpailu: str) -> bool or None:
     return tiedoston_nimi.exists()
 
 
-def lataaKilpailu(nimi: str, kilpailu: str) -> bool or None:
+def lataaKilpailu(nimi: str, kilpailu: dict) -> bool or None:
     tiedoston_nimi = Path(nimi)
     tiedoston_nimi = tiedoston_nimi.with_suffix(".txt")
     try:
