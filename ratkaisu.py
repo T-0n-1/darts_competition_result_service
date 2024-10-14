@@ -43,46 +43,48 @@ def lataaKilpailu(nimi: str, kilpailu: dict) -> bool or None:
 
 
 # PÄÄOHJELMA
-# muuttujien alustus
-global nimi
-kilpailu = {}       # kilpailu tulossäiliö
-nimi = ""           # kilpailun nimi
-valinta = ""        # valinta käyttöliittymässä
-# kilpailija = ''   # kilpailijan nimi
-# tulos = ''        # kilpailijan tulos
+def main():
+    # muuttujien alustus
+    global nimi
+    kilpailu = {}       # kilpailu tulossäiliö
+    nimi = ""           # kilpailun nimi
+    valinta = ""        # valinta käyttöliittymässä
 
-# varsinainen ohjelman runko
-menu = True
-while menu:
-    valinta = input(
-        "Anna valinta (n - aloita uusi, l - lataa vanha, s - tallenna, p - tulokset, i - lisää, q - lopeta): "
-    )
-    if valinta == "n":
-        nimi = input("Anna kilpailun nimi: ")
-        kilpailu = {}
-    elif valinta == "l":
-        nimi = input("Anna kilpailun nimi: ")
-        kilpailu = {}
-        if lataaKilpailu(nimi, kilpailu):
-            pass
-        else:
-            print("Kilpailua ei löytynyt!")
-            nimi = ""
-    elif valinta == "s":
-        tallennaKilpailu(nimi, kilpailu)
-    elif valinta == "p":
-        tulostaKilpailu(nimi, kilpailu)
-    elif valinta == "i":
-        if not nimi:
+    # varsinainen ohjelman runko
+    menu = True
+    while menu:
+        valinta = input(
+            "Anna valinta (n - aloita uusi, l - lataa vanha, s - tallenna, p - tulokset, i - lisää, q - lopeta): "
+        )
+        if valinta == "n":
             nimi = input("Anna kilpailun nimi: ")
-        lisää = True
-        while lisää:
-            kilpailija = input("Anna kilpailija: ")
-            if not kilpailija:
-                break
-            tulos = input("Anna tulos: ")
-            lisaaTulos(kilpailu, kilpailija, tulos)
-    elif valinta == "q":
-        menu = False
-    else:
-        pass
+            kilpailu = {}
+        elif valinta == "l":
+            nimi = input("Anna kilpailun nimi: ")
+            kilpailu = {}
+            if lataaKilpailu(nimi, kilpailu):
+                pass
+            else:
+                print("Kilpailua ei löytynyt!")
+                nimi = ""
+        elif valinta == "s":
+            tallennaKilpailu(nimi, kilpailu)
+        elif valinta == "p":
+            tulostaKilpailu(nimi, kilpailu)
+        elif valinta == "i":
+            if not nimi:
+                nimi = input("Anna kilpailun nimi: ")
+            lisää = True
+            while lisää:
+                kilpailija = input("Anna kilpailija: ")
+                if not kilpailija:
+                    break
+                tulos = input("Anna tulos: ")
+                lisaaTulos(kilpailu, kilpailija, tulos)
+        elif valinta == "q":
+            menu = False
+        else:
+            pass
+
+if __name__ == "__main__":
+    main()
