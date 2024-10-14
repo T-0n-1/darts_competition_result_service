@@ -4,20 +4,18 @@ from pathlib import Path
 # määritä luokat (class)
 
 
-# määritä funktiot (def (function))
-def lisaaTulos(kilpailu, kilpailija, tulos):
+# määritä funktiot (function)
+def lisaaTulos(kilpailu: str, kilpailija: str, tulos: int) -> None:
     kilpailu[kilpailija] = tulos
-    # no return
 
 
-def tulostaKilpailu(nimi, kilpailu):
+def tulostaKilpailu(nimi: str, kilpailu: str) -> None:
     print(f'Kilpailu: {nimi}')
     for avain in kilpailu:
-        print(avain + ': ' + kilpailu[avain])
-    # no return
+        print(f'{avain}: {kilpailu[avain]}')
 
 
-def tallennaKilpailu(nimi, kilpailu):
+def tallennaKilpailu(nimi: str, kilpailu: str) -> bool or None:
     tiedoston_nimi = Path(nimi)
     tiedoston_nimi = tiedoston_nimi.with_suffix(".txt")
     try:
@@ -30,7 +28,7 @@ def tallennaKilpailu(nimi, kilpailu):
     return tiedoston_nimi.exists()
 
 
-def lataaKilpailu(nimi, kilpailu):
+def lataaKilpailu(nimi: str, kilpailu: str) -> bool or None:
     tiedoston_nimi = Path(nimi)
     tiedoston_nimi = tiedoston_nimi.with_suffix(".txt")
     try:
